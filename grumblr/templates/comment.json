@@ -1,0 +1,8 @@
+{
+  "text" : "{{new_comment.text}}", 
+  "profile" : "{{new_comment.profile}}",
+  "time" : "{{new_comment.time}}",
+  "messages":[
+    {% for message in messages %}"{{message}}"{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Login Page{% endblock %}
+{% block link %}
+{% load static from staticfiles %}
+<script src="{% static "js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{% static "css/styleLogin.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+{% endblock %}
+
+	{% block form %}
+		<h1>Login</h1>
+		
+{% if form.errors %}
+<p style="color:red">
+Incorrect user name and password.
+</p>
+{% endif %}
+		<form action="{% url 'login' %}" method="post">
+			<!-- <input type="text" name="username" class="username" placeholder="please input your name">
+			<input type="password" name="password" class="password" placeholder="please ipput your password"> -->
+			<table>
+			<tr>
+    			<td>{{ form.username.label_tag }}</td>
+    			<td>{{ form.username }}</td>
+			</tr>
+			<tr>
+    			<td>{{ form.password.label_tag }}</td>
+    			<td>{{ form.password }}</td>
+			</tr>
+			</table>
+			<button type="submit" class="button_submit">GO</button>
+			<div class="signupPage">
+				<a href="/create-user" class="signup">Sign Up</a>
+
+			</div>
+			
+			{% csrf_token %}
+		</form>
+			{% endblock %}

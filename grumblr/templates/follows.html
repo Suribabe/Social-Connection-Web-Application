@@ -1,0 +1,126 @@
+{% extends "base3.html" %}
+{% block title %}Global Stream{% endblock %}
+{% block link %}
+       {% load static from staticfiles %}
+       <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+  <link rel="stylesheet" href="{% static "css/profile.css" %}">
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="{% static "js/bootstrap.min.js"></script>
+   {% load static %}
+      <script src="{% static "jquery-3.1.1.min.js" %}"></script>
+{% endblock %}
+
+{% block follow %}
+{% for follow in follows %}
+{{follow.profile.id}}
+{% endfor %}
+{% endblock %}
+
+  {% block imagewall %}
+   
+    <div class="col-sm-12">
+      <div id="fronter">
+
+   <!--    {% for message in messages%}
+      {{message}}
+      {% endfor%} -->
+
+        <div id="userPicBack" > 
+        {% if currentUser.profile.id %} 
+        <img src="{% url 'photo' currentUser.profile.id %}" class="/static/img-circle" width="60" height="60">
+        {% endif %}
+        {% if userProfile.id %} 
+           <img src="{% url 'photo' userProfile.id %}"  class="/static/img-circle" width="60" height="60">
+        {% endif %}
+        </div>
+        
+        {%if currentUser%}
+        <h4>{{currentUser.profile.user}}</h4>
+        {%endif%} 
+
+        {%if userProfile%}
+        <h4>{{userProfile.user}}</h4>
+        {%endif%} 
+
+      {% ifequal exist "followed" %}
+       <a href="/unfollow/{{userProfile.id}}">Unfollow</a> 
+       {% endifequal %}         
+      {% ifequal exist "unfollow" %}
+      <a href="/follow/{{userProfile.id}}">follow</a>   
+      {% endifequal %}
+
+      </div>
+      <br/>
+    </div>
+ {% endblock %}
+
+    {% block info %}
+    		<div class="sidebar-module1"> 
+        <h2>About Me</h2>     
+        {%if userProfile%}
+        <h4>Name:  {{userProfile.profile.firstname}}&nbsp{{userProfile.profile.lastname}}</h4>                
+        <!-- <p class="info">Info: {{user.profile.bio}}</p> -->
+        <h4>Info: {{userProfile.profile.bio}}</h4>
+        <h4>age: {{userProfile.profile.age}}</h4>
+         {% endif %}
+
+          {%if currentUser%}
+        <h4>Name:  {{currentUser.profile.firstname}}&nbsp{{currentUser.profile.lastname}}</h4>                
+        <!-- <p class="info">Info: {{user.profile.bio}}</p> -->
+        <h4>Info: {{currentUser.profile.bio}}</h4>
+        <h4>age: {{currentUser.profile.age}}</h4>
+         {% endif %}
+    {% endblock %}
+	
+
+      {% block main %}
+ 			<h4><small>RECENT POSTS</small></h4>
+      <hr>   
+
+      {%for post in posts%} 
+  <div class="col-sm-2">                 
+    <img src="{% url 'photo' post.profile.id %}" alt='{{userProfile.first_name.value}}' class="img-circle" id="img-circle" width="60" height="60">
+  </div>
+  <div class="col-sm-10" id="profilePost">           
+    <a href="/profile/{{post.profile.id}}">{{post.profile.firstname}} {{post.profile.lastname}} </a><small>{{post.time}}</small>     
+    <p>{{post.text}} {{post.id}}</p> 
+     <div class="comments-area">
+            <h4>Leave a Comment:</h4>
+            <form class="commentForm" method="post" id="commentform-{{post.id}}">
+              <textarea class="form-control" rows="2"  name="commentArea" height="40"></textarea>
+              <input type="submit" class="btn btn-success" value="submit"></input>
+              <input type="hidden" name="hiddenpostid" value="{{post.id}}">
+             {% csrf_token %}
+            </form>          
+      </div>
+     <p> Comments:</p>
+
+        <div id="comment-{{post.id}}" class="comment-list">       
+            {%for comment in comments%} 
+            {% ifequal comment.post.id post.id %} 
+                <table>
+                  <tr>
+                    <td class="comment_image">
+                      <div class="comment_image_div" class="col-sm-2">
+                        <img src="{% url 'photo' comment.profile.id %}" class="img-circle" width="40" height="40">
+                      </div>
+                    </td>
+                    <td class="comment_name">
+                      <div class="comment_name" class="col-sm-10" >
+                        <a href="/profile/{{comment.profile.id}}"><h4>{{comment.profile.firstname}} {{comment.profile.lastname}}</a><small>{{comment.time}}</small></h4>
+                        <p>{{comment.text}}</p>
+                      </div>
+                    </td>
+                  </tr>
+                </table> 
+            {% endifequal %}  
+            {%endfor%}   
+        </div> 
+      </div>            
+
+
+  {%endfor%} 
+           
+      </div>
+        <script src="{% static "profile.js" %}"></script> 
+   {% endblock %}

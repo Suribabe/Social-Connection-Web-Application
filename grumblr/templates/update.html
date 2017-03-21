@@ -1,0 +1,93 @@
+{% extends "base3.html" %}
+{% block title %}Global Stream{% endblock %}
+{% block link %}
+       {% load static from staticfiles %}
+       <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+  <link rel="stylesheet" href="{% static "css/profile.css" %}">
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="{% static "js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block imagewall %}
+   
+    <div class="col-sm-12">
+      <div id="fronter">
+        <div id="userPicBack" >
+          {% if user.profile.id %} 
+           <img src="{% url 'photo' user.profile.id %}" alt="{{form.first_name.value}} {{form.last_name.value}}" class="/static/img-circle" width="60" height="60">           
+        {% endif %}
+        </div>
+        {%if user%}
+        <h4>{{user.username}}</h4>
+        {%endif%} 
+      </div>
+      <br/>
+    </div>
+ {% endblock %}
+    {% block info %}
+        <div class="sidebar-module1"> 
+        <h2>About Me</h2>     
+        <h4>Name:  {{user.profile.firstname}}&nbsp{{user.profile.lastname}}</h4>                
+        <!-- <p class="info">Info: {{user.profile.bio}}</p> -->
+        <h4>Info: {{user.profile.bio}}</h4>
+        <h4>age: {{user.profile.age}}</h4>
+   {% endblock %} 
+        
+
+    {% block main %}
+      <h4><small>RECENT POSTS</small></h4>
+      <hr>
+      <form method="POST">
+      {% for message in messages %}
+      {{message}}
+      {% endfor %}
+      <table>
+         {% for field in passwordForm.visible_fields %}
+      <tr>
+        <td>{{field.label_tag}}</td>
+        <td>{{field}}</td>
+        <td style="color: red">{{field.errors}}</td>
+      </tr>
+      {%endfor%}
+      </table>
+      </form>
+
+      {% for error in nameform.non_field_errors %}
+      <p style="color: red">
+      {{ error }}
+      </p>
+      {% endfor %}
+       {% for error in profileform.non_field_errors %}
+      <p style="color: red">
+      {{ error }}
+      </p>
+      {% endfor %}
+      <form method="post" action="" enctype="multipart/form-data">
+      {% if error %}
+      {{error}}
+      {% endif %}
+      <table>
+        {% for field in nameform.visible_fields %}
+      <tr>
+        <td>{{field.label_tag}}</td>
+        <td>{{field}}</td>
+        <td style="color: red">{{field.errors}}</td>
+      </tr>
+      {%endfor%}
+      {% for field in profileform.visible_fields %}
+      <tr>
+        <td>{{field.label_tag}}</td>
+        <td>{{field}}</td>
+        <td style="color: red">{{field.errors}}</td>
+      </tr>
+      {%endfor%}    
+      </table>
+     <button type="submit" class="button_submit">submit</button>
+     {% csrf_token %}
+     </form>
+      <hr>
+      </div>   
+           
+      </div>
+          
+   {% endblock %}

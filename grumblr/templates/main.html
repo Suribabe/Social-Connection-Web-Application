@@ -1,0 +1,104 @@
+{% extends "base2.html" %}
+{% block title %}Global Stream{% endblock %}
+{% block link %}
+       
+      <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+      {% load static from staticfiles %}
+
+      <script src="{% static "js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{% static "css/main.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+      <!-- <script src="/static/js/global.js" ></script> --> 
+      {% load static %}     
+      <script src="{% static "jquery-3.1.1.min.js" %}"></script>
+
+{% endblock %}
+
+{% block page %}
+      <div class="col-sm-4">
+      <br/>
+      <div class="welcome">
+            <h2>Welcome!
+            {%if user%}
+            <small>&nbsp &nbsp{{user.username}}
+            </small>
+            {%endif%} 
+            </h2>
+      </div>
+                       
+            <br/>
+            <br/>
+            <br/>
+          <ul id="messages">
+          </ul>
+          <label for="name">What's New Today</label>
+          {% for error in form.non_field_errors %}
+          <p style="color: red">
+          {{ error }}
+        </p>
+        {% endfor %}
+            <form role="form" method="post" id="create-post-form">
+            <table>
+    {% for field in form.visible_fields %}
+      <tr>
+        <td class="">{{field.label_tag}}</td>
+        <td class="username">{{field}}</td>
+        <td style="color: red">{{field.errors}}</td>
+      </tr>
+      {% endfor %}
+      </table>
+                 <!-- <textarea class="form-control" name="postArea"></textarea>                  -->
+                <button type="submit" class="btn btn-primary" id="create-post-btn">Submit</button>
+                  {% csrf_token %}
+            </form>         
+          
+            </div>
+<div class="col-sm-7">
+  <div id="allposts" class="{{last_post_id}}"></div>
+  {%for post in posts%} 
+  <div class="col-sm-2">                 
+    <img src="{% url 'photo' post.profile.id %}" alt='{{userProfile.first_name.value}}' class="img-circle" id="img-circle" width="60" height="60">
+  </div>
+  <div class="col-sm-10" id="profilePost">           
+    <a href="/profile/{{post.profile.id}}">{{post.profile.firstname}} {{post.profile.lastname}} </a><small>{{post.time}}</small>     
+    <p>{{post.text}} </p> 
+     <div class="comments-area">
+            <h4>Leave a Comment:</h4>
+            <form class="commentForm" method="post" id="commentform-{{post.id}}">
+              <textarea class="form-control" rows="2"  name="commentArea" height="40"></textarea>
+              <input type="submit" class="btn btn-success" value="submit"></input>
+              <input type="hidden" name="hiddenpostid" value="{{post.id}}">
+             {% csrf_token %}
+            </form>          
+      </div>
+     <p> Comments:</p>
+        <div id="comment-{{post.id}}" class="comment-list">       
+            {%for comment in comments%} 
+            {% ifequal comment.post.id post.id %} 
+                <table>
+                  <tr>
+                    <td class="comment_image">
+                      <div class="comment_image_div" class="col-sm-2">
+                        <img src="{% url 'photo' comment.profile.id %}" class="img-circle" width="40" height="40">
+                      </div>
+                    </td>
+                    <td class="comment_name">
+                      <div class="comment_name" class="col-sm-10" >
+                        <a href="/profile/{{comment.profile.id}}">{{comment.profile.firstname}} {{comment.profile.lastname}}</a><small>{{comment.time}}</small>
+                        <p>{{comment.text}}</p>
+                      </div>
+                    </td>
+                  </tr>
+                </table> 
+            {% endifequal %}  
+            {%endfor%}
+            </br>   
+        </div>           
+      </div>
+
+  {%endfor%} 
+     
+</div>
+
+<script src="{% static "global.js" %}"></script>
+{% endblock %}

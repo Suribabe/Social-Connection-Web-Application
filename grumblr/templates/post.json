@@ -1,0 +1,12 @@
+{
+  "post" : "{{post}}", 
+  "id":"{{post.id}}",
+  "profile" : "{{post.profile}}",
+  "time" : "{{post.time}}",
+  "comments":[
+  	{% for comment in post.comments.all %}"{{comment.text}}"{% if not forloop.last %}, {% endif %}{% endfor %}
+  	// {% for student in course.students.all %}"{{student}}"{% if not forloop.last %}, {% endif %}{% endfor %}
+  	// {% for student in course.students.all %}"{{student}}"{% if not forloop.last %}, {% endif %}{% endfor %}
+  	// {% for comment in comments %}{% include 'comment.json' %}{% if not forloop.last %}, {% endif %}{% endfor %}
+  ]
+}

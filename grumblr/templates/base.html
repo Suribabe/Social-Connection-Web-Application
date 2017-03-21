@@ -1,0 +1,54 @@
+<html>
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}title{% endblock %}</title>
+	{% block link %}
+	{% load static from staticfiles %}
+	<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+	{% endblock %}
+</head>
+ 
+<body>
+	 <nav class="navbar" role="navigation">
+	  {% block sidebar %}
+            <div class="container-fluid"> 
+                  <div class="navbar-header">         
+                        <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home">Grumblr</a>
+                  </div> 
+
+                  <ul class="nav navbar-nav">
+                       <li><a href="#"><span class="glyphicon glyphicon-cog">Setting</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user">Support</a></li>                     
+                  </ul>                  
+            </div>
+             {% endblock %}
+      </nav>
+
+	<div class="page">
+	{% block error %}
+	{% for error in errors %}
+	<p style="color:red">
+	{{error}}
+	</p>
+	{% endfor %}
+	{% endblock %}
+
+	{% block form %}
+		<h1>Login</h1>
+		<form action="{% url 'login' %}" method="post">
+			<input type="text" name="username" class="username" placeholder="please input your name">
+			<input type="password" name="password" class="password" placeholder="please ipput your password">
+			
+			<button type="submit" class="button_submit">GO</button>
+			<div class="signupPage">
+				<a href="/create-user" class="signup">Sign Up</a>
+				<!-- <input type="hidden" name="next" value="{{next}}" /> -->
+			</div>
+			
+			{% csrf_token %}
+		</form>
+			{% endblock %}
+	</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Register Page{% endblock %}
+{% block link %}
+{% load static from staticfiles %}
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+<link rel="stylesheet" href="{% static "css/styleSignUp.css" %}">
+{% endblock %}
+
+	{% block form %}
+		<h1>Sign Up</h1>
+		{% for error in form.non_field_errors %}
+	<p style="color: red">
+	{{ error }}
+	</p>
+	{% endfor %}
+		<form action="/create-user" method="post">
+		<table>
+		{% for field in form.visible_fields %}
+		<!-- 	<input type="text" name="user-name" class="username" value="" placeholder="please input your user name">{{field}}
+			<input type="text" name="first-name" class="firstname" placeholder="First Name">
+			<input type="text" name="last-name" class="lastname" placeholder="Last Name">
+			<input type="password" name="password1" class="password" placeholder="please input your password">
+			<input type="password" name="password2" class="password" placeholder="please confirm your password"> -->
+			<tr>
+  			<td class="">{{field.label_tag}}</td>
+  			<td class="username">{{field}}</td>
+  			<td style="color: red">{{field.errors}}</td>
+			</tr>
+			{% endfor %}
+			</table>
+
+			{% for field in form.hidden_fields %}
+			{{field}}
+			{% endfor %}
+		{% csrf_token %}
+			{% csrf_token %}
+			<button type="submit" class="button_submit">GO</button>
+			<div class="loginPage">
+				<a href="/grumblr/login" class="login">Login</a>
+			</div>
+			{% if user%}
+			{{users}}
+			{% endif %}
+			{% if passwords%}
+			{{passwords}}
+			{% endif %}
+		</form>
+	{% endblock %}

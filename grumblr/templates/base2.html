@@ -1,0 +1,54 @@
+<html>
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}title{% endblock %}</title>
+	{% block link %}
+  {% load static from staticfiles %}
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+{% endblock %}
+</head>
+ 
+<body>
+  {% block follow %}
+  {% endblock %}
+	 <nav class="navbar" role="navigation">
+            <div class="container-fluid"> 
+                  <div class="navbar-header">         
+                        <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home">Grumblr</a>
+                  </div> 
+
+                  <ul class="nav navbar-nav">
+                       <li><a href="#"><span class="glyphicon glyphicon-cog">Setting</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user">Support</a></li>
+                        <li><a href="/logout"><span class="glyphicon glyphicon-off">Log Out</a></li>
+                        <li>&nbsp</li>
+                        <li>
+                        <input type="text" class="input" placeholder="search...">
+                        <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></button>
+                        </li>
+                      
+                        <li><a href="/profile/{{user.profile.id}}">My Profile</a></li>
+                        <li><a href="/update">Update Profile</a></li>
+                        <li><a href="/changepassword">Change Password</a></li>
+                        <li><a href="/follows">View Follows</a></li>
+              </div>
+                  </ul> 
+                  
+      </nav>
+
+    {% block imagewall %}
+    {% endblock %}
+	<div class="container-fluid">
+      <div class="row content">
+	{% block page %}
+	
+	{% endblock %}
+
+	</div>
+	<footer class="container-fluid">
+  <p>Designed By Shiqing Jing</p>
+  <a href="#">Back to Top</a>
+</footer>
+</body>
+</html>

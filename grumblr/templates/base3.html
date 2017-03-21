@@ -1,0 +1,108 @@
+<html>
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}title{% endblock %}</title>
+	{% block link %}
+	 {% load static from staticfiles %}
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+	{% endblock %}
+</head>
+ 
+<body>
+  {% block follow %}
+  {% endblock %}
+	 <nav class="navbar" role="navigation">
+            <div class="container-fluid"> 
+                  <div class="navbar-header">         
+                        <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home">Grumblr</a>
+                  </div> 
+
+                  <ul class="nav navbar-nav">
+                       <li><a href="#"><span class="glyphicon glyphicon-cog">Setting</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user">Support</a></li>
+                        <li><a href="/logout"><span class="glyphicon glyphicon-off">Log Out</a></li>
+                        <li>&nbsp</li>
+                        <li>
+                        <input type="text" class="input" placeholder="search...">
+                        <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></button>
+                        </li>
+                         <li><a href="/profile/{{user.profile.id}}">My Profile</a></li>
+                        <li><a href="/update">Update Profile</a></li>
+                        <li><a href="/changepassword">Change Password</a></li>
+                        <li><a href="/follows">View Follows</a></li>
+              </div>
+                  </ul> 
+                  
+      </nav>
+    {% block imagewall %}
+    {% endblock %}
+	<div class="container-fluid">
+      <div class="row content">
+  <div class="col-sm-3">
+    <dr/>
+    <div class="sidebar-module1"> 
+  {% block info %}
+    {% endblock %}
+    </div>
+  <div class="sidebar-module2">
+            <h4>My Posts</h4>
+                <ol class="list-unstyled">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    2016<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Jan-Mar</a></li> 
+                    <li><a href="#">Apr-Jun</a></li>  
+                    <li><a href="#">Jul-Sep</a></li>  
+                    <li><a href="#">Oct-Dec</a></li>                    
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    2015<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Jan-Mar</a></li> 
+                    <li><a href="#">Apr-Jun</a></li>  
+                    <li><a href="#">Jul-Sep</a></li>  
+                    <li><a href="#">Oct-Dec</a></li>                    
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    2014<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Jan-Mar</a></li> 
+                    <li><a href="#">Apr-Jun</a></li>  
+                    <li><a href="#">Jul-Sep</a></li>  
+                    <li><a href="#">Oct-Dec</a></li>                  
+                  </ul>
+                </li>               
+        </div>
+
+        <div class="sidebar-module2">
+            <h4>Link To</h4>
+                <ol class="list-unstyled">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li></ol>
+        </div>
+      </div>
+      </div>
+	 <div class="col-sm-8">
+  {% block main %}
+    {% endblock %}
+
+  </div>
+	</div>
+
+
+	<footer class="container-fluid">
+  <p>Designed By Shiqing Jing</p>
+  <a href="#">Back to Top</a>
+</footer>
+</body>
+</html>

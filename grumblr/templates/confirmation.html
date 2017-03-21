@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Register Page{% endblock %}
+{% block link %}
+{% load static from staticfiles %}
+<script src="{% static "js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{% static "css/styleSignUp.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+{% endblock %}
+
+	{% block form %}
+		{% if email%}
+			{{email}}
+		{% endif %}
+		<div class="loginPage">
+				<a href="/grumblr/login" class="login">Login</a>
+			</div>
+	{% endblock %}
